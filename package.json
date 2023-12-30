@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "A Node.js API wrapper for Roblox.",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "https://github.com/lunatite/noblox.ts.git",
   "author": "Luna <bedgowns@gmail.com>",
   "license": "MIT",
+  "files": ["/dist"],
   "private": true,
   "devDependencies": {
     "@types/node": "^12.20.42",
