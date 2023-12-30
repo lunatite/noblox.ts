@@ -10,12 +10,13 @@ export class RobloxSession {
   private _cookie: string;
   private _authUser: AuthUser | undefined;
 
-  // i'm doing this cause i don't know how to do it automatically.
-  public readonly auth = new AuthService(this);
-  public readonly user = new UserService(this);
-  public readonly catalog = new CatalogService(this);
-  public readonly assetDelivery = new AssetDeliveryService();
-  public readonly groups = new GroupsService(this);
+  public readonly services = {
+    auth: new AuthService(this),
+    user: new UserService(this),
+    catalog: new CatalogService(this),
+    assetDelivery: new AssetDeliveryService(),
+    groups: new GroupsService(this),
+  };
 
   constructor(cookie: string) {
     if (!cookie.toLowerCase().includes("warning:-")) {
@@ -50,7 +51,7 @@ export class RobloxSession {
     };
 
     if (method !== "GET") {
-      headers["X-CSRF-TOKEN"] = await this.auth.getXsrfToken();
+      headers["X-CSRF-TOKEN"] = await this.services.auth.getXsrfToken();
     }
 
     const request = await axios<T>({
@@ -67,7 +68,7 @@ export class RobloxSession {
   }
 
   public async login() {
-    this._authUser = await this.user.getAuthUser();
+    this._authUser = await this.services.user.getAuthUser();
     return this;
   }
 }
