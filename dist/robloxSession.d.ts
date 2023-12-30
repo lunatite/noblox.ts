@@ -8,11 +8,13 @@ import { GroupsService } from "./services/groupsService/groupsSerivce";
 export declare class RobloxSession {
     private _cookie;
     private _authUser;
-    readonly auth: AuthService;
-    readonly user: UserService;
-    readonly catalog: CatalogService;
-    readonly assetDelivery: AssetDeliveryService;
-    readonly groups: GroupsService;
+    readonly services: {
+        auth: AuthService;
+        user: UserService;
+        catalog: CatalogService;
+        assetDelivery: AssetDeliveryService;
+        groups: GroupsService;
+    };
     constructor(cookie: string);
     get cookie(): string;
     get authUser(): AuthUser | undefined;

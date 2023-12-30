@@ -21,12 +21,13 @@ const assetDeliverySerivce_1 = require("./services/assetDeliveryService/assetDel
 const groupsSerivce_1 = require("./services/groupsService/groupsSerivce");
 class RobloxSession {
     constructor(cookie) {
-        // i'm doing this cause i don't know how to do it automatically.
-        this.auth = new authService_1.AuthService(this);
-        this.user = new usersService_1.UserService(this);
-        this.catalog = new catalogService_1.CatalogService(this);
-        this.assetDelivery = new assetDeliverySerivce_1.AssetDeliveryService();
-        this.groups = new groupsSerivce_1.GroupsService(this);
+        this.services = {
+            auth: new authService_1.AuthService(this),
+            user: new usersService_1.UserService(this),
+            catalog: new catalogService_1.CatalogService(this),
+            assetDelivery: new assetDeliverySerivce_1.AssetDeliveryService(),
+            groups: new groupsSerivce_1.GroupsService(this),
+        };
         if (!cookie.toLowerCase().includes("warning:-")) {
             throw new Error("Warning : No Roblox warning detected in provided cookie. Ensure you include the entire .ROBLOSECURITY.");
         }
@@ -48,7 +49,7 @@ class RobloxSession {
                 Cookie: `.ROBLOSECURITY=${this._cookie}`,
             };
             if (method !== "GET") {
-                headers["X-CSRF-TOKEN"] = yield this.auth.getXsrfToken();
+                headers["X-CSRF-TOKEN"] = yield this.services.auth.getXsrfToken();
             }
             const request = yield axios_1.default(Object.assign(Object.assign({}, config), { url,
                 method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers) }));
@@ -57,7 +58,7 @@ class RobloxSession {
     }
     login() {
         return __awaiter(this, void 0, void 0, function* () {
-            this._authUser = yield this.user.getAuthUser();
+            this._authUser = yield this.services.user.getAuthUser();
             return this;
         });
     }
