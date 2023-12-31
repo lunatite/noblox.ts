@@ -1,5 +1,5 @@
 export declare enum CatalogSortAggregation {
-    "Past_Day" = 1,
-    "Past_Week" = 3,
-    "All_Time" = 5
+    "Past Day" = 1,
+    "Past Week" = 3,
+    "All Time" = 5
 }

@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CatalogSortAggregation = void 0;
 var CatalogSortAggregation;
 (function (CatalogSortAggregation) {
-    CatalogSortAggregation[CatalogSortAggregation["Past_Day"] = 1] = "Past_Day";
-    CatalogSortAggregation[CatalogSortAggregation["Past_Week"] = 3] = "Past_Week";
-    CatalogSortAggregation[CatalogSortAggregation["All_Time"] = 5] = "All_Time";
+    CatalogSortAggregation[CatalogSortAggregation["Past Day"] = 1] = "Past Day";
+    CatalogSortAggregation[CatalogSortAggregation["Past Week"] = 3] = "Past Week";
+    CatalogSortAggregation[CatalogSortAggregation["All Time"] = 5] = "All Time";
 })(CatalogSortAggregation = exports.CatalogSortAggregation || (exports.CatalogSortAggregation = {}));

@@ -27,8 +27,8 @@ export class CatalogSearch {
     // most favorited and best selling required another sub category (aggregation) for sorting.
     // past day (1) , past week (3) , all time (5)
     if (
-      (sortType === CatalogSortType.Most_Favorited ||
-        sortType === CatalogSortType.Best_Selling) &&
+      (sortType === CatalogSortType["Most Favorited"] ||
+        sortType === CatalogSortType["Best Selling"]) &&
       !this.options.aggregation
     ) {
       throw new Error(

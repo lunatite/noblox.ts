@@ -21,8 +21,8 @@ class CatalogSearch {
         }
         // most favorited and best selling required another sub category (aggregation) for sorting.
         // past day (1) , past week (3) , all time (5)
-        if ((sortType === catalog_1.CatalogSortType.Most_Favorited ||
-            sortType === catalog_1.CatalogSortType.Best_Selling) &&
+        if ((sortType === catalog_1.CatalogSortType["Most Favorited"] ||
+            sortType === catalog_1.CatalogSortType["Best Selling"]) &&
             !this.options.aggregation) {
             throw new Error("Sort type 'Most Favorited' and 'Bestselling' requires the aggregation field.");
         }

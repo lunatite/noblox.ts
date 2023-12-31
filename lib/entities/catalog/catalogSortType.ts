@@ -1,6 +1,6 @@
 export enum CatalogSortType {
-  "Most_Favorited" = 1,
-  "Best_Selling",
-  "Recently_Created",
-  "Price_Low_To_High",
+  "Most Favorited" = 1,
+  "Best Selling",
+  "Recently Created",
+  "Price Low To High",
 }
