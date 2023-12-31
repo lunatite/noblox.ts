@@ -57,7 +57,7 @@ class CatalogService {
                 itemType: "Asset",
                 id: assetId,
             }));
-            const response = yield axios_1.default.get(`${CatalogService.baseUrl}/catalog/items/details`, {
+            const response = yield axios_1.default.post(`${CatalogService.baseUrl}/catalog/items/details`, {
                 method: "POST",
                 data: {
                     items: assets,

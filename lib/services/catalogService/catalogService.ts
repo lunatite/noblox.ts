@@ -64,10 +64,9 @@ export class CatalogService {
       id: assetId,
     }));
 
-    const response = await axios.get<CatalogItemDetailsResponse>(
+    const response = await axios.post<CatalogItemDetailsResponse>(
       `${CatalogService.baseUrl}/catalog/items/details`,
       {
-        method: "POST",
         data: {
           items: assets,
         },
