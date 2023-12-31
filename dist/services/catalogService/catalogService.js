@@ -57,15 +57,8 @@ class CatalogService {
                 itemType: "Asset",
                 id: assetId,
             }));
-            const response = yield axios_1.default.post(`${CatalogService.baseUrl}/catalog/items/details`, {
-                method: "POST",
-                data: {
-                    items: assets,
-                },
-                headers: {
-                    "X-CSRF-TOKEN": yield authService_1.AuthService.getXsrfToken(),
-                },
-            });
+            const token = yield authService_1.AuthService.getXsrfToken();
+            const response = yield axios_1.default.post(`${CatalogService.baseUrl}/catalog/items/details`, { items: assets }, { headers: { "X-CSRF-TOKEN": token } });
             return response.data;
         });
     }

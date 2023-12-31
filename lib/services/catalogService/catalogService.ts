@@ -64,16 +64,12 @@ export class CatalogService {
       id: assetId,
     }));
 
+    const token = await AuthService.getXsrfToken();
+
     const response = await axios.post<CatalogItemDetailsResponse>(
       `${CatalogService.baseUrl}/catalog/items/details`,
-      {
-        data: {
-          items: assets,
-        },
-        headers: {
-          "X-CSRF-TOKEN": await AuthService.getXsrfToken(),
-        },
-      },
+      { items: assets },
+      { headers: { "X-CSRF-TOKEN": token } },
     );
 
     return response.data;
