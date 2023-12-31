@@ -8,6 +8,7 @@ import {
 } from "../../entities/catalog";
 
 import { splitArrayIntoChunks } from "../../utils/splitArrayIntoChunks";
+import { AuthService } from "../authService/authService";
 
 export class CatalogService {
   public static readonly baseUrl = "https://catalog.roblox.com/v1/";
@@ -66,8 +67,12 @@ export class CatalogService {
     const response = await axios.get<CatalogItemDetailsResponse>(
       `${CatalogService.baseUrl}/catalog/items/details`,
       {
+        method: "POST",
         data: {
           items: assets,
+        },
+        headers: {
+          "X-CSRF-TOKEN": await AuthService.getXsrfToken(),
         },
       },
     );

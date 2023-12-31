@@ -1,6 +1,6 @@
 {
   "name": "noblox.ts",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A Node.js API wrapper for Roblox.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

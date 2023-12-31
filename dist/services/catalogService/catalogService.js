@@ -16,6 +16,7 @@ exports.CatalogService = void 0;
 const axios_1 = __importDefault(require("axios"));
 const catalogSearch_1 = require("./catalogSearch");
 const splitArrayIntoChunks_1 = require("../../utils/splitArrayIntoChunks");
+const authService_1 = require("../authService/authService");
 class CatalogService {
     constructor(_session) {
         this._session = _session;
@@ -57,8 +58,12 @@ class CatalogService {
                 id: assetId,
             }));
             const response = yield axios_1.default.get(`${CatalogService.baseUrl}/catalog/items/details`, {
+                method: "POST",
                 data: {
                     items: assets,
+                },
+                headers: {
+                    "X-CSRF-TOKEN": yield authService_1.AuthService.getXsrfToken(),
                 },
             });
             return response.data;

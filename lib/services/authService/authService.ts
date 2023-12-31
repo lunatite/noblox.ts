@@ -1,3 +1,4 @@
+import axios from "axios";
 import { RobloxSession } from "../../robloxSession";
 
 export class AuthService {
@@ -5,18 +6,27 @@ export class AuthService {
 
   constructor(private readonly _session: RobloxSession) {}
 
+  private static parseXsrfTokenFromHtml(html: string) {
+    const result = AuthService._xsrfTokenRegex.exec(html);
+
+    if (result === null) {
+      throw new Error("Failed to scrape X-CSRF-TOKEN from html.");
+    }
+
+    return result[1];
+  }
+
   public async getXsrfToken() {
     const request = await this._session.request<string>(
       "https://www.roblox.com/home",
       "GET",
     );
 
-    const result = AuthService._xsrfTokenRegex.exec(request.data);
+    return AuthService.parseXsrfTokenFromHtml(request.data);
+  }
 
-    if (result === null) {
-      throw new Error("Failed to scrape X-CSRF-TOKEN from page.");
-    }
-
-    return result[1];
+  public static async getXsrfToken() {
+    const request = await axios.get("https://www.roblox.com/");
+    return this.parseXsrfTokenFromHtml(request.data);
   }
 }
