@@ -1,10 +1,12 @@
 import axios, { AxiosError, AxiosRequestConfig, Method } from "axios";
 import { AuthUser } from "./entities/users/authUser";
-import { UserService } from "./services/usersService/usersService";
-import { AuthService } from "./services/authService/authService";
-import { CatalogService } from "./services/catalogService/catalogService";
-import { AssetDeliveryService } from "./services/assetDeliveryService/assetDeliverySerivce";
-import { GroupsService } from "./services/groupsService/groupsSerivce";
+import {
+  UsersService,
+  AuthService,
+  CatalogService,
+  AssetDeliveryService,
+  GroupsService,
+} from "./services";
 import { RobloxError } from "./robloxError";
 
 export class RobloxSession {
@@ -13,7 +15,7 @@ export class RobloxSession {
 
   public readonly services = {
     auth: new AuthService(this),
-    user: new UserService(this),
+    user: new UsersService(this),
     catalog: new CatalogService(this),
     assetDelivery: new AssetDeliveryService(),
     groups: new GroupsService(this),

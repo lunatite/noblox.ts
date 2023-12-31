@@ -1,4 +1,4 @@
-import { CatalogSearchOptions } from "../../entities/catalog/catalogSearchOptions";
+import { CatalogSearchOptions } from "../../entities/catalog";
 export declare class CatalogSearch {
     readonly options: CatalogSearchOptions;
     readonly params: URLSearchParams;

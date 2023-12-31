@@ -1,6 +1,6 @@
 import { AuthUser } from "../../entities/users/authUser";
 import { RobloxSession } from "../../robloxSession";
-export declare class UserService {
+export declare class UsersService {
     private readonly _session;
     static readonly baseUrl = "https://users.roblox.com/v1/";
     constructor(_session: RobloxSession);

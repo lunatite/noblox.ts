@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CatalogSearch = void 0;
-const catalogSortType_1 = require("../../entities/catalog/catalogSortType");
+const catalog_1 = require("../../entities/catalog");
 class CatalogSearch {
     constructor(options) {
         this.options = options;
@@ -21,8 +21,8 @@ class CatalogSearch {
         }
         // most favorited and best selling required another sub category (aggregation) for sorting.
         // past day (1) , past week (3) , all time (5)
-        if ((sortType === catalogSortType_1.CatalogSortType.Most_Favorited ||
-            sortType === catalogSortType_1.CatalogSortType.Best_Selling) &&
+        if ((sortType === catalog_1.CatalogSortType.Most_Favorited ||
+            sortType === catalog_1.CatalogSortType.Best_Selling) &&
             !this.options.aggregation) {
             throw new Error("Sort type 'Most Favorited' and 'Bestselling' requires the aggregation field.");
         }

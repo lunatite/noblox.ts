@@ -1,8 +1,11 @@
-import { RobloxSession } from "../../robloxSession";
 import { CatalogSearch } from "./catalogSearch";
-import { CatalogPagingResponse } from "../../entities/catalog/catalogPagingResponse";
-import { CatalogItemDetailsResponse } from "../../entities/catalog/catalogItemDetailsResponse";
-import { CatalogAssetItem } from "../../entities/catalog/catalogAssetItem";
+import { RobloxSession } from "../../robloxSession";
+import {
+  CatalogPagingResponse,
+  CatalogItemDetailsResponse,
+  CatalogAssetItem,
+} from "../../entities/catalog";
+
 import { splitArrayIntoChunks } from "../../utils/splitArrayIntoChunks";
 
 export class CatalogService {

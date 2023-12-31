@@ -1,5 +1,4 @@
-import { CatalogSearchOptions } from "../../entities/catalog/catalogSearchOptions";
-import { CatalogSortType } from "../../entities/catalog/catalogSortType";
+import { CatalogSortType, CatalogSearchOptions } from "../../entities/catalog";
 
 export class CatalogSearch {
   public readonly params: URLSearchParams;

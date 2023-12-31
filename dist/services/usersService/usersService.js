@@ -9,14 +9,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserService = void 0;
-class UserService {
+exports.UsersService = void 0;
+class UsersService {
     constructor(_session) {
         this._session = _session;
     }
     getAuthUser() {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this._session.request(`${UserService.baseUrl}/users/authenticated`, "GET");
+            const response = yield this._session.request(`${UsersService.baseUrl}/users/authenticated`, "GET");
             return response.data;
         });
     }
@@ -27,5 +27,5 @@ class UserService {
         });
     }
 }
-exports.UserService = UserService;
-UserService.baseUrl = "https://users.roblox.com/v1/";
+exports.UsersService = UsersService;
+UsersService.baseUrl = "https://users.roblox.com/v1/";

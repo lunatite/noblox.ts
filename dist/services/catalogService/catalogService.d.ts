@@ -1,7 +1,6 @@
-import { RobloxSession } from "../../robloxSession";
 import { CatalogSearch } from "./catalogSearch";
-import { CatalogItemDetailsResponse } from "../../entities/catalog/catalogItemDetailsResponse";
-import { CatalogAssetItem } from "../../entities/catalog/catalogAssetItem";
+import { RobloxSession } from "../../robloxSession";
+import { CatalogItemDetailsResponse, CatalogAssetItem } from "../../entities/catalog";
 export declare class CatalogService {
     private readonly _session;
     static readonly baseUrl = "https://catalog.roblox.com/v1/";

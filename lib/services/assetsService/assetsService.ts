@@ -1,8 +1,10 @@
 import FormData from "form-data";
-import { UploadAssetOptions } from "../../entities/assets/uploadAssetOptions";
+import {
+  UploadAssetOptions,
+  Operation,
+  UpdateAssetOptions,
+} from "../../entities/";
 import { RobloxSession } from "../../robloxSession";
-import { Operation } from "../../entities/assets/operation";
-import { UpdateAssetOptions } from "../../entities/assets/updateAssetOptions";
 
 export class AssetsService {
   public static readonly baseUrl = "https://apis.roblox.com/";

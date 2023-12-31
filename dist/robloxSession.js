@@ -14,20 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RobloxSession = void 0;
 const axios_1 = __importDefault(require("axios"));
-const usersService_1 = require("./services/usersService/usersService");
-const authService_1 = require("./services/authService/authService");
-const catalogService_1 = require("./services/catalogService/catalogService");
-const assetDeliverySerivce_1 = require("./services/assetDeliveryService/assetDeliverySerivce");
-const groupsSerivce_1 = require("./services/groupsService/groupsSerivce");
+const services_1 = require("./services");
 const robloxError_1 = require("./robloxError");
 class RobloxSession {
     constructor(cookie) {
         this.services = {
-            auth: new authService_1.AuthService(this),
-            user: new usersService_1.UserService(this),
-            catalog: new catalogService_1.CatalogService(this),
-            assetDelivery: new assetDeliverySerivce_1.AssetDeliveryService(),
-            groups: new groupsSerivce_1.GroupsService(this),
+            auth: new services_1.AuthService(this),
+            user: new services_1.UsersService(this),
+            catalog: new services_1.CatalogService(this),
+            assetDelivery: new services_1.AssetDeliveryService(),
+            groups: new services_1.GroupsService(this),
         };
         if (!cookie.toLowerCase().includes("warning:-")) {
             throw new Error("Warning : No Roblox warning detected in provided cookie. Ensure you include the entire .ROBLOSECURITY.");
