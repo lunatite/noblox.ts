@@ -10,56 +10,38 @@ export class GroupsService {
   constructor(private readonly _session: RobloxSession) {}
 
   public async getGroupFunds(groupId: number) {
-    try {
-      const response = await this._session.request<{ robux: number }>(
-        `https://economy.roblox.com/v1/groups/${groupId}/currency`,
-        "GET",
-      );
-      return response.data.robux;
-    } catch {
-      throw new Error("Insufficient permissions.");
-    }
+    const response = await this._session.request<{ robux: number }>(
+      `https://economy.roblox.com/v1/groups/${groupId}/currency`,
+      "GET",
+    );
+    return response.data.robux;
   }
 
   public async getGroup(groupId: number): Promise<GroupResponse> {
-    try {
-      const resp = await this._session.request<GroupResponse>(
-        `https://groups.roblox.com/v1/groups/${groupId}`,
-        "GET",
-      );
-      return resp.data;
-    } catch {
-      throw new Error("Group does not exist.");
-    }
+    const resp = await this._session.request<GroupResponse>(
+      `https://groups.roblox.com/v1/groups/${groupId}`,
+      "GET",
+    );
+    return resp.data;
   }
 
   public async getUserGroupMembership(groupId: number) {
-    try {
-      const response = await this._session.request<GroupMembershipResponse>(
-        `https://groups.roblox.com/v1/groups/${groupId}/membership`,
-        "GET",
-      );
+    const response = await this._session.request<GroupMembershipResponse>(
+      `https://groups.roblox.com/v1/groups/${groupId}/membership`,
+      "GET",
+    );
 
-      return response.data;
-    } catch (e) {
-      throw new Error(
-        "Failed to fetch user group membership. Group moust likely doesn't exist.",
-      );
-    }
+    return response.data;
   }
 
   public async getGroupRevenueSummary(
     groupId: number,
     timePeriod: GroupAnalyticTimePeriod,
   ) {
-    try {
-      const response = await this._session.request<GroupRevenueSummayResponse>(
-        `https://economy.roblox.com/v1/groups/${groupId}/revenue/summary/${timePeriod}`,
-        "GET",
-      );
-      return response.data;
-    } catch {
-      throw new Error("Failed to fetch group revenue analytics.");
-    }
+    const response = await this._session.request<GroupRevenueSummayResponse>(
+      `https://economy.roblox.com/v1/groups/${groupId}/revenue/summary/${timePeriod}`,
+      "GET",
+    );
+    return response.data;
   }
 }
