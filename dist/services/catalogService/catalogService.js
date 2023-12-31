@@ -8,18 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CatalogService = void 0;
+const axios_1 = __importDefault(require("axios"));
 const catalogSearch_1 = require("./catalogSearch");
 const splitArrayIntoChunks_1 = require("../../utils/splitArrayIntoChunks");
 class CatalogService {
     constructor(_session) {
         this._session = _session;
-        this.CATALOG_ITEM_DETAILS_LIMIT_PER_REQUEST = 100;
     }
-    searchCatalog(options) {
+    static searchCatalog(options) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this._session.request(`${CatalogService.baseUrl}/search/items`, "GET", { params: options.params });
+            const response = yield axios_1.default.get(`${CatalogService.baseUrl}/search/items`, {
+                params: options.params,
+            });
             const data = response.data;
             return {
                 previousPageCursor: data.previousPageCursor,
@@ -28,7 +33,7 @@ class CatalogService {
             };
         });
     }
-    searchCatalogBulk(options, pages = 1) {
+    static searchCatalogBulk(options, pages = 1) {
         return __awaiter(this, void 0, void 0, function* () {
             let assetIds = [];
             for (let i = 0; i < pages; i++) {
@@ -42,7 +47,7 @@ class CatalogService {
             return assetIds;
         });
     }
-    getCatalogItemDetails(assetIds) {
+    static getCatalogItemDetails(assetIds) {
         return __awaiter(this, void 0, void 0, function* () {
             if (assetIds.length > 100) {
                 throw new Error("Unable to fetch more than 100 catalog item details.");
@@ -51,7 +56,7 @@ class CatalogService {
                 itemType: "Asset",
                 id: assetId,
             }));
-            const response = yield this._session.request(`${CatalogService.baseUrl}/catalog/items/details`, "POST", {
+            const response = yield axios_1.default.get(`${CatalogService.baseUrl}/catalog/items/details`, {
                 data: {
                     items: assets,
                 },
@@ -59,7 +64,7 @@ class CatalogService {
             return response.data;
         });
     }
-    getCatalogItemDetailsBulk(assetIds) {
+    static getCatalogItemDetailsBulk(assetIds) {
         return __awaiter(this, void 0, void 0, function* () {
             let catalogAssetItems = [];
             const assetIdsChunks = splitArrayIntoChunks_1.splitArrayIntoChunks(assetIds, this.CATALOG_ITEM_DETAILS_LIMIT_PER_REQUEST);
@@ -74,3 +79,4 @@ class CatalogService {
 }
 exports.CatalogService = CatalogService;
 CatalogService.baseUrl = "https://catalog.roblox.com/v1/";
+CatalogService.CATALOG_ITEM_DETAILS_LIMIT_PER_REQUEST = 100;

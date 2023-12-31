@@ -1,3 +1,4 @@
+import axios from "axios";
 import { CatalogSearch } from "./catalogSearch";
 import { RobloxSession } from "../../robloxSession";
 import {
@@ -10,15 +11,16 @@ import { splitArrayIntoChunks } from "../../utils/splitArrayIntoChunks";
 
 export class CatalogService {
   public static readonly baseUrl = "https://catalog.roblox.com/v1/";
-  private readonly CATALOG_ITEM_DETAILS_LIMIT_PER_REQUEST = 100;
+  private static readonly CATALOG_ITEM_DETAILS_LIMIT_PER_REQUEST = 100;
 
   constructor(private readonly _session: RobloxSession) {}
 
-  public async searchCatalog(options: CatalogSearch) {
-    const response = await this._session.request<CatalogPagingResponse>(
+  public static async searchCatalog(options: CatalogSearch) {
+    const response = await axios.get<CatalogPagingResponse>(
       `${CatalogService.baseUrl}/search/items`,
-      "GET",
-      { params: options.params },
+      {
+        params: options.params,
+      },
     );
 
     const data = response.data;
@@ -30,7 +32,7 @@ export class CatalogService {
     };
   }
 
-  public async searchCatalogBulk(options: CatalogSearch, pages = 1) {
+  public static async searchCatalogBulk(options: CatalogSearch, pages = 1) {
     let assetIds: number[] = [];
 
     for (let i = 0; i < pages; i++) {
@@ -51,7 +53,7 @@ export class CatalogService {
     return assetIds;
   }
 
-  public async getCatalogItemDetails(assetIds: Array<number>) {
+  public static async getCatalogItemDetails(assetIds: Array<number>) {
     if (assetIds.length > 100) {
       throw new Error("Unable to fetch more than 100 catalog item details.");
     }
@@ -61,9 +63,8 @@ export class CatalogService {
       id: assetId,
     }));
 
-    const response = await this._session.request<CatalogItemDetailsResponse>(
+    const response = await axios.get<CatalogItemDetailsResponse>(
       `${CatalogService.baseUrl}/catalog/items/details`,
-      "POST",
       {
         data: {
           items: assets,
@@ -74,7 +75,7 @@ export class CatalogService {
     return response.data;
   }
 
-  public async getCatalogItemDetailsBulk(
+  public static async getCatalogItemDetailsBulk(
     assetIds: Array<number>,
   ): Promise<Array<CatalogAssetItem>> {
     let catalogAssetItems: CatalogAssetItem[] = [];
