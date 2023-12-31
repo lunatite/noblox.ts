@@ -7,7 +7,7 @@ import { AssetDeliveryService } from "./services/assetDeliveryService/assetDeliv
 import { GroupsService } from "./services/groupsService/groupsSerivce";
 export declare class RobloxSession {
     private _cookie;
-    private _authUser;
+    private _user;
     readonly services: {
         auth: AuthService;
         user: UserService;
@@ -17,7 +17,7 @@ export declare class RobloxSession {
     };
     constructor(cookie: string);
     get cookie(): string;
-    get authUser(): AuthUser | undefined;
+    get user(): AuthUser | undefined;
     request<T>(url: string, method: Method, config?: AxiosRequestConfig): Promise<import("axios").AxiosResponse<T, any>>;
     login(): Promise<this>;
 }

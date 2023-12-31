@@ -19,6 +19,7 @@ const authService_1 = require("./services/authService/authService");
 const catalogService_1 = require("./services/catalogService/catalogService");
 const assetDeliverySerivce_1 = require("./services/assetDeliveryService/assetDeliverySerivce");
 const groupsSerivce_1 = require("./services/groupsService/groupsSerivce");
+const robloxError_1 = require("./robloxError");
 class RobloxSession {
     constructor(cookie) {
         this.services = {
@@ -39,8 +40,8 @@ class RobloxSession {
     get cookie() {
         return this._cookie;
     }
-    get authUser() {
-        return this._authUser;
+    get user() {
+        return this._user;
     }
     request(url, method, config) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -51,14 +52,19 @@ class RobloxSession {
             if (method !== "GET") {
                 headers["X-CSRF-TOKEN"] = yield this.services.auth.getXsrfToken();
             }
-            const request = yield axios_1.default(Object.assign(Object.assign({}, config), { url,
-                method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers) }));
-            return request;
+            try {
+                const request = yield axios_1.default(Object.assign(Object.assign({}, config), { url,
+                    method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers) }));
+                return request;
+            }
+            catch (e) {
+                throw new robloxError_1.RobloxError(e);
+            }
         });
     }
     login() {
         return __awaiter(this, void 0, void 0, function* () {
-            this._authUser = yield this.services.user.getAuthUser();
+            this._user = yield this.services.user.getAuthUser();
             return this;
         });
     }

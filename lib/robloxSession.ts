@@ -1,14 +1,15 @@
-import axios, { AxiosRequestConfig, Method } from "axios";
+import axios, { AxiosError, AxiosRequestConfig, Method } from "axios";
 import { AuthUser } from "./entities/users/authUser";
 import { UserService } from "./services/usersService/usersService";
 import { AuthService } from "./services/authService/authService";
 import { CatalogService } from "./services/catalogService/catalogService";
 import { AssetDeliveryService } from "./services/assetDeliveryService/assetDeliverySerivce";
 import { GroupsService } from "./services/groupsService/groupsSerivce";
+import { RobloxError } from "./robloxError";
 
 export class RobloxSession {
   private _cookie: string;
-  private _authUser: AuthUser | undefined;
+  private _user: AuthUser | undefined;
 
   public readonly services = {
     auth: new AuthService(this),
@@ -35,8 +36,8 @@ export class RobloxSession {
     return this._cookie;
   }
 
-  public get authUser() {
-    return this._authUser;
+  public get user() {
+    return this._user;
   }
 
   public async request<T>(
@@ -54,21 +55,25 @@ export class RobloxSession {
       headers["X-CSRF-TOKEN"] = await this.services.auth.getXsrfToken();
     }
 
-    const request = await axios<T>({
-      ...config,
-      url,
-      method,
-      headers: {
-        ...config?.headers,
-        ...headers,
-      },
-    });
+    try {
+      const request = await axios<T>({
+        ...config,
+        url,
+        method,
+        headers: {
+          ...config?.headers,
+          ...headers,
+        },
+      });
 
-    return request;
+      return request;
+    } catch (e) {
+      throw new RobloxError(e as AxiosError);
+    }
   }
 
   public async login() {
-    this._authUser = await this.services.user.getAuthUser();
+    this._user = await this.services.user.getAuthUser();
     return this;
   }
 }
