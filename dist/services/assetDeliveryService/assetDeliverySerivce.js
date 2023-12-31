@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AssetDeliveryService = void 0;
 const axios_1 = __importDefault(require("axios"));
-const fs_1 = __importDefault(require("fs"));
 class AssetDeliveryService {
     static getAssetTemplateUrl(assetId) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -32,8 +31,8 @@ class AssetDeliveryService {
             const templateArrayBuffer = yield axios_1.default.get(templateUrl, {
                 responseType: "arraybuffer",
             });
-            const templateBuffer = Buffer.from(templateArrayBuffer.data, "binary");
-            return fs_1.default.createReadStream(templateBuffer);
+            const templateBuffer = Buffer.from(templateArrayBuffer.data);
+            return templateBuffer;
         });
     }
 }

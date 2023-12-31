@@ -1,5 +1,4 @@
 import axios from "axios";
-import fs from "fs";
 
 export class AssetDeliveryService {
   public static readonly baseUrl = "https://assetdelivery.roblox.com/v1/";
@@ -24,7 +23,7 @@ export class AssetDeliveryService {
       responseType: "arraybuffer",
     });
 
-    const templateBuffer = Buffer.from(templateArrayBuffer.data, "binary");
-    return fs.createReadStream(templateBuffer);
+    const templateBuffer = Buffer.from(templateArrayBuffer.data);
+    return templateBuffer;
   }
 }
