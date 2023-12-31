@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig, Method } from "axios";
+import axios, { AxiosRequestConfig, Method } from "axios";
 import { AuthUser } from "./entities/users/authUser";
 import {
   UsersService,
@@ -8,6 +8,11 @@ import {
   GroupsService,
 } from "./services";
 import { RobloxError } from "./robloxError";
+
+axios.interceptors.response.use(
+  (response) => response,
+  (error) => Promise.reject(new RobloxError(error)),
+);
 
 export class RobloxSession {
   private _cookie: string;
@@ -57,21 +62,17 @@ export class RobloxSession {
       headers["X-CSRF-TOKEN"] = await this.services.auth.getXsrfToken();
     }
 
-    try {
-      const request = await axios<T>({
-        ...config,
-        url,
-        method,
-        headers: {
-          ...config?.headers,
-          ...headers,
-        },
-      });
+    const request = await axios<T>({
+      ...config,
+      url,
+      method,
+      headers: {
+        ...config?.headers,
+        ...headers,
+      },
+    });
 
-      return request;
-    } catch (e) {
-      throw new RobloxError(e as AxiosError);
-    }
+    return request;
   }
 
   public async login() {

@@ -16,6 +16,7 @@ exports.RobloxSession = void 0;
 const axios_1 = __importDefault(require("axios"));
 const services_1 = require("./services");
 const robloxError_1 = require("./robloxError");
+axios_1.default.interceptors.response.use((response) => response, (error) => Promise.reject(new robloxError_1.RobloxError(error)));
 class RobloxSession {
     constructor(cookie) {
         this.services = {
@@ -48,14 +49,9 @@ class RobloxSession {
             if (method !== "GET") {
                 headers["X-CSRF-TOKEN"] = yield this.services.auth.getXsrfToken();
             }
-            try {
-                const request = yield axios_1.default(Object.assign(Object.assign({}, config), { url,
-                    method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers) }));
-                return request;
-            }
-            catch (e) {
-                throw new robloxError_1.RobloxError(e);
-            }
+            const request = yield axios_1.default(Object.assign(Object.assign({}, config), { url,
+                method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers) }));
+            return request;
         });
     }
     login() {
