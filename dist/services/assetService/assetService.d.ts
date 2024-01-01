@@ -1,4 +1,4 @@
-import { UploadAssetOptions, Operation, UpdateAssetOptions } from "../../entities";
+import { UploadAssetOptions, Operation, UpdateAssetOptions, UploadedAsset } from "../../entities";
 import { RobloxSession } from "../../robloxSession";
 export declare class AssetService {
     private readonly _session;
@@ -7,5 +7,5 @@ export declare class AssetService {
     getOperation(operationId: string): Promise<Operation>;
     updateAssetPrice(assetId: number, price: number): Promise<void>;
     updateAsset(assetId: number, options: UpdateAssetOptions): Promise<void>;
-    uploadAsset(options: UploadAssetOptions): Promise<import("../../entities").UploadedAsset | undefined>;
+    uploadAsset(options: UploadAssetOptions): Promise<UploadedAsset>;
 }

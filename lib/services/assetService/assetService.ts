@@ -3,6 +3,7 @@ import {
   UploadAssetOptions,
   Operation,
   UpdateAssetOptions,
+  UploadedAsset,
 } from "../../entities";
 import { RobloxSession } from "../../robloxSession";
 
@@ -41,7 +42,9 @@ export class AssetService {
     );
   }
 
-  public async uploadAsset(options: UploadAssetOptions) {
+  public async uploadAsset(
+    options: UploadAssetOptions,
+  ): Promise<UploadedAsset> {
     const config = {
       displayName: options.name,
       description: options.description,
@@ -71,9 +74,9 @@ export class AssetService {
 
     while (!operation.done) {
       await new Promise((resolve) => setTimeout(resolve, 1500));
-      operation = await await this.getOperation(operation.operationId);
+      operation = await this.getOperation(operation.operationId);
     }
 
-    return operation.response;
+    return operation.response!;
   }
 }

@@ -61,7 +61,7 @@ class AssetService {
             let operation = yield (yield this._session.request("https://apis.roblox.com/assets/user-auth/v1/assets", "POST", { headers: Object.assign({}, formData.getHeaders()) })).data;
             while (!operation.done) {
                 yield new Promise((resolve) => setTimeout(resolve, 1500));
-                operation = yield yield this.getOperation(operation.operationId);
+                operation = yield this.getOperation(operation.operationId);
             }
             return operation.response;
         });
