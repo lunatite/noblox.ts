@@ -6,6 +6,7 @@ export declare class AssetService {
     constructor(_session: RobloxSession);
     getOperation(operationId: string): Promise<Operation>;
     updateAssetPrice(assetId: number, price: number): Promise<void>;
+    setAssetOnSale(assetId: number, price: number): Promise<void>;
     updateAsset(assetId: number, options: UpdateAssetOptions): Promise<void>;
     uploadAsset(options: UploadAssetOptions): Promise<UploadedAsset>;
 }

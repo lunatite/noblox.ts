@@ -35,6 +35,19 @@ class AssetService {
             });
         });
     }
+    setAssetOnSale(assetId, price) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this._session.request(`https://itemconfiguration.roblox.com/v1/assets/${assetId}/release`, "POST", {
+                data: {
+                    price,
+                    priceConfiguration: {
+                        priceInRobux: price,
+                    },
+                    saleStatus: "onSale",
+                },
+            });
+        });
+    }
     updateAsset(assetId, options) {
         return __awaiter(this, void 0, void 0, function* () {
             yield this._session.request(`https://develop.roblox.com/v1/assets/${assetId}`, "PATCH", { data: options });
