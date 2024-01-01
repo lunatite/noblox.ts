@@ -8,7 +8,7 @@ function getErrorMessage(error: AxiosError) {
   const errorRespData: any = error.response.data;
 
   if (errorRespData.errors) {
-    return errorRespData.errors[0].message;
+    return errorRespData.errors;
   }
 
   return errorRespData.message;

@@ -58,7 +58,8 @@ class AssetService {
             formData.append("fileContent", options.file, {
                 contentType: "image/png",
             });
-            let operation = yield (yield this._session.request("https://apis.roblox.com/assets/user-auth/v1/assets", "POST", { headers: Object.assign({}, formData.getHeaders()) })).data;
+            const response = yield yield this._session.request("https://apis.roblox.com/assets/user-auth/v1/assets", "POST", { headers: Object.assign({}, formData.getHeaders()), data: formData });
+            let operation = response.data;
             while (!operation.done) {
                 yield new Promise((resolve) => setTimeout(resolve, 1500));
                 operation = yield this.getOperation(operation.operationId);

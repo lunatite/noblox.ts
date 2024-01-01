@@ -64,13 +64,13 @@ export class AssetService {
       contentType: "image/png",
     });
 
-    let operation = await (
-      await this._session.request<Operation>(
-        "https://apis.roblox.com/assets/user-auth/v1/assets",
-        "POST",
-        { headers: { ...formData.getHeaders() } },
-      )
-    ).data;
+    const response = await await this._session.request<Operation>(
+      "https://apis.roblox.com/assets/user-auth/v1/assets",
+      "POST",
+      { headers: { ...formData.getHeaders() }, data: formData },
+    );
+
+    let operation = response.data;
 
     while (!operation.done) {
       await new Promise((resolve) => setTimeout(resolve, 1500));
