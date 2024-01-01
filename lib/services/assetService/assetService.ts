@@ -43,9 +43,9 @@ export class AssetService {
 
   public async uploadAsset(options: UploadAssetOptions) {
     const config = {
-      displayName: options.assetInfo.name,
-      description: options.assetInfo.description,
-      assetType: options.assetInfo.assetType,
+      displayName: options.name,
+      description: options.description,
+      assetType: options.type,
       creationContext: {
         creator: {
           [options.isGroup ? "groupId" : "userId"]: options.creatorId,

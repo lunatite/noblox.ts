@@ -43,9 +43,9 @@ class AssetService {
     uploadAsset(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const config = {
-                displayName: options.assetInfo.name,
-                description: options.assetInfo.description,
-                assetType: options.assetInfo.assetType,
+                displayName: options.name,
+                description: options.description,
+                assetType: options.type,
                 creationContext: {
                     creator: {
                         [options.isGroup ? "groupId" : "userId"]: options.creatorId,
