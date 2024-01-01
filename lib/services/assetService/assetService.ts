@@ -80,7 +80,7 @@ export class AssetService {
       contentType: "image/png",
     });
 
-    const response = await await this._session.request<Operation>(
+    const response = await this._session.request<Operation>(
       "https://apis.roblox.com/assets/user-auth/v1/assets",
       "POST",
       { headers: { ...formData.getHeaders() }, data: formData },
