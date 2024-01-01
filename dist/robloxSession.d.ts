@@ -1,6 +1,6 @@
 import { AxiosRequestConfig, Method } from "axios";
 import { AuthUser } from "./entities/users/authUser";
-import { UsersService, AuthService, CatalogService, AssetDeliveryService, GroupsService } from "./services";
+import { UsersService, AuthService, CatalogService, AssetDeliveryService, GroupsService, AssetService } from "./services";
 export declare class RobloxSession {
     private _cookie;
     private _user;
@@ -9,6 +9,7 @@ export declare class RobloxSession {
         user: UsersService;
         catalog: CatalogService;
         assetDelivery: AssetDeliveryService;
+        asset: AssetService;
         groups: GroupsService;
     };
     constructor(cookie: string);

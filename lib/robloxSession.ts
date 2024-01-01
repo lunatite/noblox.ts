@@ -6,6 +6,7 @@ import {
   CatalogService,
   AssetDeliveryService,
   GroupsService,
+  AssetService,
 } from "./services";
 import { RobloxError } from "./robloxError";
 
@@ -23,6 +24,7 @@ export class RobloxSession {
     user: new UsersService(this),
     catalog: new CatalogService(this),
     assetDelivery: new AssetDeliveryService(),
+    asset: new AssetService(this),
     groups: new GroupsService(this),
   };
 

@@ -3,10 +3,10 @@ import {
   UploadAssetOptions,
   Operation,
   UpdateAssetOptions,
-} from "../../entities/";
+} from "../../entities";
 import { RobloxSession } from "../../robloxSession";
 
-export class AssetsService {
+export class AssetService {
   public static readonly baseUrl = "https://apis.roblox.com/";
 
   constructor(private readonly _session: RobloxSession) {}

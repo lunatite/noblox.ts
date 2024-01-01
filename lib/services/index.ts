@@ -1,5 +1,5 @@
 export { AssetDeliveryService } from "./assetDeliveryService/assetDeliverySerivce";
-export { AssetsService } from "./assetsService/assetsService";
+export { AssetService } from "./assetService/assetService";
 export { AuthService } from "./authService/authService";
 export { CatalogService } from "./catalogService/catalogService";
 export { GroupsService } from "./groupsService/groupsSerivce";

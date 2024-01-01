@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = exports.GroupsService = exports.CatalogService = exports.AuthService = exports.AssetsService = exports.AssetDeliveryService = void 0;
+exports.UsersService = exports.GroupsService = exports.CatalogService = exports.AuthService = exports.AssetService = exports.AssetDeliveryService = void 0;
 var assetDeliverySerivce_1 = require("./assetDeliveryService/assetDeliverySerivce");
 Object.defineProperty(exports, "AssetDeliveryService", { enumerable: true, get: function () { return assetDeliverySerivce_1.AssetDeliveryService; } });
-var assetsService_1 = require("./assetsService/assetsService");
-Object.defineProperty(exports, "AssetsService", { enumerable: true, get: function () { return assetsService_1.AssetsService; } });
+var assetService_1 = require("./assetService/assetService");
+Object.defineProperty(exports, "AssetService", { enumerable: true, get: function () { return assetService_1.AssetService; } });
 var authService_1 = require("./authService/authService");
 Object.defineProperty(exports, "AuthService", { enumerable: true, get: function () { return authService_1.AuthService; } });
 var catalogService_1 = require("./catalogService/catalogService");

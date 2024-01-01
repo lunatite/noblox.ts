@@ -24,6 +24,7 @@ class RobloxSession {
             user: new services_1.UsersService(this),
             catalog: new services_1.CatalogService(this),
             assetDelivery: new services_1.AssetDeliveryService(),
+            asset: new services_1.AssetService(this),
             groups: new services_1.GroupsService(this),
         };
         if (!cookie.toLowerCase().includes("warning:-")) {
