@@ -34,6 +34,22 @@ export class AssetService {
     );
   }
 
+  public async setAssetOnSale(assetId: number, price: number) {
+    await this._session.request(
+      `https://itemconfiguration.roblox.com/v1/assets/${assetId}/release`,
+      "POST",
+      {
+        data: {
+          price,
+          priceConfiguration: {
+            priceInRobux: price,
+          },
+          saleStatus: "onSale",
+        },
+      },
+    );
+  }
+
   public async updateAsset(assetId: number, options: UpdateAssetOptions) {
     await this._session.request(
       `https://develop.roblox.com/v1/assets/${assetId}`,
