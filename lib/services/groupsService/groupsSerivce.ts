@@ -50,6 +50,13 @@ export class GroupsService {
     return response.data;
   }
 
+  public async sendAllyRequest(userGroupId: number, targetGroupId: number) {
+    await this._session.request(
+      `${GroupsService.baseUrl}/${userGroupId}/relationships/allies/${targetGroupId}`,
+      "POST",
+    );
+  }
+
   public static async searchGroup(groupSearch: GroupSearch) {
     const response = await axios.get<GroupSearchResponse>(
       `${GroupsService.baseUrl}/search`,
