@@ -1,3 +1,4 @@
+import axios from "axios";
 import { RobloxSession } from "../../robloxSession";
 import {
   GroupMembershipResponse,
@@ -5,13 +6,17 @@ import {
   GroupAnalyticTimePeriod,
   GroupRevenueSummayResponse,
 } from "../../entities/groups";
+import { GroupSearch } from "./groupSearch";
+import { GroupSearchResponse } from "../../entities/groups/groupSearchResponse";
 
 export class GroupsService {
+  public static readonly baseUrl = "https://groups.roblox.com/v1/groups";
+
   constructor(private readonly _session: RobloxSession) {}
 
   public async getGroupFunds(groupId: number) {
     const response = await this._session.request<{ robux: number }>(
-      `https://economy.roblox.com/v1/groups/${groupId}/currency`,
+      `${GroupsService.baseUrl}/groups/${groupId}/currency`,
       "GET",
     );
     return response.data.robux;
@@ -19,7 +24,7 @@ export class GroupsService {
 
   public async getGroup(groupId: number): Promise<GroupResponse> {
     const resp = await this._session.request<GroupResponse>(
-      `https://groups.roblox.com/v1/groups/${groupId}`,
+      `${GroupsService.baseUrl}/groups/${groupId}`,
       "GET",
     );
     return resp.data;
@@ -27,7 +32,7 @@ export class GroupsService {
 
   public async getUserGroupMembership(groupId: number) {
     const response = await this._session.request<GroupMembershipResponse>(
-      `https://groups.roblox.com/v1/groups/${groupId}/membership`,
+      `${GroupsService.baseUrl}/${groupId}/membership`,
       "GET",
     );
 
@@ -42,6 +47,17 @@ export class GroupsService {
       `https://economy.roblox.com/v1/groups/${groupId}/revenue/summary/${timePeriod}`,
       "GET",
     );
+    return response.data;
+  }
+
+  public static async searchGroup(groupSearch: GroupSearch) {
+    const response = await axios.get<GroupSearchResponse>(
+      `${GroupsService.baseUrl}/search`,
+      {
+        params: groupSearch.params,
+      },
+    );
+
     return response.data;
   }
 }
