@@ -8,27 +8,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GroupsService = void 0;
+const axios_1 = __importDefault(require("axios"));
 class GroupsService {
     constructor(_session) {
         this._session = _session;
     }
     getGroupFunds(groupId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this._session.request(`https://economy.roblox.com/v1/groups/${groupId}/currency`, "GET");
+            const response = yield this._session.request(`${GroupsService.baseUrl}/groups/${groupId}/currency`, "GET");
             return response.data.robux;
         });
     }
     getGroup(groupId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this._session.request(`https://groups.roblox.com/v1/groups/${groupId}`, "GET");
+            const resp = yield this._session.request(`${GroupsService.baseUrl}/groups/${groupId}`, "GET");
             return resp.data;
         });
     }
     getUserGroupMembership(groupId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this._session.request(`https://groups.roblox.com/v1/groups/${groupId}/membership`, "GET");
+            const response = yield this._session.request(`${GroupsService.baseUrl}/${groupId}/membership`, "GET");
             return response.data;
         });
     }
@@ -38,5 +42,19 @@ class GroupsService {
             return response.data;
         });
     }
+    sendAllyRequest(userGroupId, targetGroupId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this._session.request(`${GroupsService.baseUrl}/${userGroupId}/relationships/allies/${targetGroupId}`, "POST");
+        });
+    }
+    static searchGroup(groupSearch) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield axios_1.default.get(`${GroupsService.baseUrl}/search`, {
+                params: groupSearch.params,
+            });
+            return response.data;
+        });
+    }
 }
 exports.GroupsService = GroupsService;
+GroupsService.baseUrl = "https://groups.roblox.com/v1/groups";
