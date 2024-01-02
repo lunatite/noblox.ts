@@ -5,3 +5,4 @@ export * from "./services";
 
 export { RobloxError } from "./robloxError";
 export { CatalogSearch } from "./services/catalogService/catalogSearch";
+export { GroupSearch } from "./services/groupsService/groupSearch";
