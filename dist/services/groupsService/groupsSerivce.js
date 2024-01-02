@@ -20,13 +20,13 @@ class GroupsService {
     }
     getGroupFunds(groupId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this._session.request(`${GroupsService.baseUrl}/groups/${groupId}/currency`, "GET");
+            const response = yield this._session.request(`${GroupsService.baseUrl}/${groupId}/currency`, "GET");
             return response.data.robux;
         });
     }
     getGroup(groupId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this._session.request(`${GroupsService.baseUrl}/groups/${groupId}`, "GET");
+            const resp = yield this._session.request(`${GroupsService.baseUrl}/${groupId}`, "GET");
             return resp.data;
         });
     }

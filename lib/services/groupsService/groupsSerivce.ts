@@ -16,7 +16,7 @@ export class GroupsService {
 
   public async getGroupFunds(groupId: number) {
     const response = await this._session.request<{ robux: number }>(
-      `${GroupsService.baseUrl}/groups/${groupId}/currency`,
+      `${GroupsService.baseUrl}/${groupId}/currency`,
       "GET",
     );
     return response.data.robux;
@@ -24,7 +24,7 @@ export class GroupsService {
 
   public async getGroup(groupId: number): Promise<GroupResponse> {
     const resp = await this._session.request<GroupResponse>(
-      `${GroupsService.baseUrl}/groups/${groupId}`,
+      `${GroupsService.baseUrl}/${groupId}`,
       "GET",
     );
     return resp.data;
