@@ -18,7 +18,7 @@ const services_1 = require("./services");
 const robloxError_1 = require("./robloxError");
 axios_1.default.interceptors.response.use((response) => response, (error) => Promise.reject(new robloxError_1.RobloxError(error)));
 class RobloxSession {
-    constructor(cookie) {
+    constructor(cookie, proxy) {
         this.services = {
             auth: new services_1.AuthService(this),
             user: new services_1.UsersService(this),
@@ -34,6 +34,7 @@ class RobloxSession {
             throw new Error("Cookie cannot be an empty string.");
         }
         this._cookie = cookie;
+        this._proxy = proxy;
     }
     get cookie() {
         return this._cookie;
@@ -51,7 +52,7 @@ class RobloxSession {
                 headers["X-CSRF-TOKEN"] = yield this.services.auth.getXsrfToken();
             }
             const request = yield axios_1.default(Object.assign(Object.assign({}, config), { url,
-                method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers) }));
+                method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers), proxy: this._proxy }));
             return request;
         });
     }
