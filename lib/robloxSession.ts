@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, Method } from "axios";
+import axios, { AxiosProxyConfig, AxiosRequestConfig, Method } from "axios";
 import { AuthUser } from "./entities/users/authUser";
 import {
   UsersService,
@@ -18,6 +18,7 @@ axios.interceptors.response.use(
 export class RobloxSession {
   private _cookie: string;
   private _user: AuthUser | undefined;
+  private _proxy: AxiosProxyConfig | undefined;
 
   public readonly services = {
     auth: new AuthService(this),
@@ -28,7 +29,7 @@ export class RobloxSession {
     groups: new GroupsService(this),
   };
 
-  constructor(cookie: string) {
+  constructor(cookie: string, proxy?: AxiosProxyConfig) {
     if (!cookie.toLowerCase().includes("warning:-")) {
       throw new Error(
         "Warning : No Roblox warning detected in provided cookie. Ensure you include the entire .ROBLOSECURITY.",
@@ -39,6 +40,7 @@ export class RobloxSession {
     }
 
     this._cookie = cookie;
+    this._proxy = proxy;
   }
 
   public get cookie() {
@@ -72,6 +74,7 @@ export class RobloxSession {
         ...config?.headers,
         ...headers,
       },
+      proxy: this._proxy,
     });
 
     return request;
