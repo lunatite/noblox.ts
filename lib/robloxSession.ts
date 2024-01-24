@@ -33,12 +33,14 @@ export class RobloxSession {
 
   constructor(cookie: string, proxy?: AxiosProxyConfig) {
     if (!cookie.toLowerCase().includes("warning:-")) {
-      throw new Error(
-        "Warning : No Roblox warning detected in provided cookie. Ensure you include the entire .ROBLOSECURITY.",
+      throw new RobloxError(
+        Error(
+          "Warning : No Roblox warning detected in provided cookie. Ensure you include the entire .ROBLOSECURITY.",
+        ),
       );
     }
     if (cookie.length === 0) {
-      throw new Error("Cookie cannot be an empty string.");
+      throw new RobloxError(Error("Cookie cannot be an empty string."));
     }
 
     this._cookie = cookie;

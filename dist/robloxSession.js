@@ -29,10 +29,10 @@ class RobloxSession {
             groups: new services_1.GroupsService(this),
         };
         if (!cookie.toLowerCase().includes("warning:-")) {
-            throw new Error("Warning : No Roblox warning detected in provided cookie. Ensure you include the entire .ROBLOSECURITY.");
+            throw new robloxError_1.RobloxError(Error("Warning : No Roblox warning detected in provided cookie. Ensure you include the entire .ROBLOSECURITY."));
         }
         if (cookie.length === 0) {
-            throw new Error("Cookie cannot be an empty string.");
+            throw new robloxError_1.RobloxError(Error("Cookie cannot be an empty string."));
         }
         this._cookie = cookie;
         this._proxy = proxy;

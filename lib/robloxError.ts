@@ -17,12 +17,17 @@ function getErrorMessage(error: AxiosError) {
 export class RobloxError extends Error {
   public readonly url?: string;
   public readonly statusCode?: number;
+  public readonly errorResponse?: unknown;
 
-  constructor(error: AxiosError) {
-    super(getErrorMessage(error));
+  constructor(error: Error) {
+    super(error.message);
 
-    this.url = error.response?.config.url;
-    this.statusCode = error.response?.status;
+    if (error instanceof AxiosError) {
+      this.url = error.response?.config.url;
+      this.statusCode = error.response?.status;
+      this.errorResponse = getErrorMessage(error);
+    }
+
     this.name = "RobloxError";
   }
 }
