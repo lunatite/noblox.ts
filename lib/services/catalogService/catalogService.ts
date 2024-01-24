@@ -1,6 +1,5 @@
 import axios from "axios";
 import { CatalogSearch } from "./catalogSearch";
-import { RobloxSession } from "../../robloxSession";
 import {
   CatalogPagingResponse,
   CatalogItemDetailsResponse,
@@ -13,8 +12,6 @@ import { AuthService } from "../authService/authService";
 export class CatalogService {
   public static readonly baseUrl = "https://catalog.roblox.com/v1/";
   private static readonly CATALOG_ITEM_DETAILS_LIMIT_PER_REQUEST = 100;
-
-  constructor(private readonly _session: RobloxSession) {}
 
   public static async searchCatalog(options: CatalogSearch) {
     const response = await axios.get<CatalogPagingResponse>(

@@ -1,5 +1,4 @@
 import axios, { AxiosProxyConfig, AxiosRequestConfig, Method } from "axios";
-import { AuthUser } from "./entities/users/authUser";
 import {
   UsersService,
   AuthService,
@@ -7,8 +6,10 @@ import {
   AssetDeliveryService,
   GroupsService,
   AssetService,
+  ThumbnailsService,
 } from "./services";
 import { RobloxError } from "./robloxError";
+import { SessionUser } from "./entities";
 
 axios.interceptors.response.use(
   (response) => response,
@@ -17,13 +18,14 @@ axios.interceptors.response.use(
 
 export class RobloxSession {
   private _cookie: string;
-  private _user: AuthUser | undefined;
+  private _user: SessionUser | undefined;
   private _proxy: AxiosProxyConfig | undefined;
 
   public readonly services = {
     auth: new AuthService(this),
     user: new UsersService(this),
-    catalog: new CatalogService(this),
+    catalog: new CatalogService(),
+    thumbnails: new ThumbnailsService(),
     assetDelivery: new AssetDeliveryService(),
     asset: new AssetService(this),
     groups: new GroupsService(this),
@@ -81,7 +83,12 @@ export class RobloxSession {
   }
 
   public async login() {
-    this._user = await this.services.user.getAuthUser();
+    const authUser = await this.services.user.getAuthUser();
+    const avatarHeadshotUrl =
+      await this.services.thumbnails.getUserAvatarHeadshot(authUser.id);
+
+    this._user = { ...authUser, profilePicture: avatarHeadshotUrl };
+
     return this;
   }
 }
