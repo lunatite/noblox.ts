@@ -2,9 +2,10 @@ import { AxiosProxyConfig, AxiosRequestConfig, Method } from "axios";
 import { UsersService, AuthService, CatalogService, AssetDeliveryService, GroupsService, AssetService, ThumbnailsService } from "./services";
 import { SessionUser } from "./entities";
 export declare class RobloxSession {
-    private _cookie;
+    private readonly _cookie;
+    private readonly _axios;
+    private readonly _proxy;
     private _user;
-    private _proxy;
     readonly services: {
         auth: AuthService;
         user: UsersService;

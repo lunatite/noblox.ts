@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersService = void 0;
+const axios_1 = __importDefault(require("axios"));
 class UsersService {
     constructor(_session) {
         this._session = _session;
@@ -26,6 +30,12 @@ class UsersService {
             return response.data.robux;
         });
     }
+    static getUserById(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield axios_1.default.get(`${UsersService.baseUrl}/users/${userId}`);
+            return response.data;
+        });
+    }
 }
 exports.UsersService = UsersService;
-UsersService.baseUrl = "https://users.roblox.com/v1/";
+UsersService.baseUrl = "https://users.roblox.com/v1";

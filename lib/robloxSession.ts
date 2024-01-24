@@ -1,4 +1,9 @@
-import axios, { AxiosProxyConfig, AxiosRequestConfig, Method } from "axios";
+import axios, {
+  Axios,
+  AxiosProxyConfig,
+  AxiosRequestConfig,
+  Method,
+} from "axios";
 import {
   UsersService,
   AuthService,
@@ -17,9 +22,10 @@ axios.interceptors.response.use(
 );
 
 export class RobloxSession {
-  private _cookie: string;
+  private readonly _cookie: string;
+  private readonly _axios: Axios;
+  private readonly _proxy: AxiosProxyConfig | undefined;
   private _user: SessionUser | undefined;
-  private _proxy: AxiosProxyConfig | undefined;
 
   public readonly services = {
     auth: new AuthService(this),
@@ -45,6 +51,21 @@ export class RobloxSession {
 
     this._cookie = cookie;
     this._proxy = proxy;
+
+    this._axios = axios.create({
+      timeout: 5000,
+      proxy,
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
+        Cookie: `.ROBLOSECURITY=${this._cookie}`,
+      },
+    });
+
+    this._axios.interceptors.response.use(
+      (response) => response,
+      (error) => Promise.reject(new RobloxError(error)),
+    );
   }
 
   public get cookie() {
@@ -60,17 +81,13 @@ export class RobloxSession {
     method: Method,
     config?: AxiosRequestConfig,
   ) {
-    const headers: Record<string, string> = {
-      "User-Agent":
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
-      Cookie: `.ROBLOSECURITY=${this._cookie}`,
-    };
+    const headers: Record<string, string> = {};
 
     if (method !== "GET") {
       headers["X-CSRF-TOKEN"] = await this.services.auth.getXsrfToken();
     }
 
-    const request = await axios<T>({
+    const request = await this._axios.request<T>({
       ...config,
       url,
       method,

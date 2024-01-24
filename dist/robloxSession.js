@@ -36,6 +36,15 @@ class RobloxSession {
         }
         this._cookie = cookie;
         this._proxy = proxy;
+        this._axios = axios_1.default.create({
+            timeout: 5000,
+            proxy,
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
+                Cookie: `.ROBLOSECURITY=${this._cookie}`,
+            },
+        });
+        this._axios.interceptors.response.use((response) => response, (error) => Promise.reject(new robloxError_1.RobloxError(error)));
     }
     get cookie() {
         return this._cookie;
@@ -45,14 +54,11 @@ class RobloxSession {
     }
     request(url, method, config) {
         return __awaiter(this, void 0, void 0, function* () {
-            const headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
-                Cookie: `.ROBLOSECURITY=${this._cookie}`,
-            };
+            const headers = {};
             if (method !== "GET") {
                 headers["X-CSRF-TOKEN"] = yield this.services.auth.getXsrfToken();
             }
-            const request = yield axios_1.default(Object.assign(Object.assign({}, config), { url,
+            const request = yield this._axios.request(Object.assign(Object.assign({}, config), { url,
                 method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers), proxy: this._proxy }));
             return request;
         });

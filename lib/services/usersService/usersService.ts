@@ -1,8 +1,10 @@
+import axios from "axios";
 import { AuthUser } from "../../entities/users/authUser";
+import { User } from "../../entities/users/user";
 import { RobloxSession } from "../../robloxSession";
 
 export class UsersService {
-  public static readonly baseUrl = "https://users.roblox.com/v1/";
+  public static readonly baseUrl = "https://users.roblox.com/v1";
 
   constructor(private readonly _session: RobloxSession) {}
 
@@ -21,5 +23,12 @@ export class UsersService {
       "GET",
     );
     return response.data.robux;
+  }
+
+  public static async getUserById(userId: number) {
+    const response = await axios.get<User>(
+      `${UsersService.baseUrl}/users/${userId}`,
+    );
+    return response.data;
   }
 }

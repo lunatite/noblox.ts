@@ -14,3 +14,4 @@ __exportStar(require("./assets"), exports);
 __exportStar(require("./catalog"), exports);
 __exportStar(require("./groups"), exports);
 __exportStar(require("./thumbnails/usersAvatarHeadshotResponse"), exports);
+__exportStar(require("./users"), exports);
