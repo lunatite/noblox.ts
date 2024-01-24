@@ -22,7 +22,8 @@ class RobloxSession {
         this.services = {
             auth: new services_1.AuthService(this),
             user: new services_1.UsersService(this),
-            catalog: new services_1.CatalogService(this),
+            catalog: new services_1.CatalogService(),
+            thumbnails: new services_1.ThumbnailsService(),
             assetDelivery: new services_1.AssetDeliveryService(),
             asset: new services_1.AssetService(this),
             groups: new services_1.GroupsService(this),
@@ -58,7 +59,9 @@ class RobloxSession {
     }
     login() {
         return __awaiter(this, void 0, void 0, function* () {
-            this._user = yield this.services.user.getAuthUser();
+            const authUser = yield this.services.user.getAuthUser();
+            const avatarHeadshotUrl = yield this.services.thumbnails.getUserAvatarHeadshot(authUser.id);
+            this._user = Object.assign(Object.assign({}, authUser), { profilePicture: avatarHeadshotUrl });
             return this;
         });
     }

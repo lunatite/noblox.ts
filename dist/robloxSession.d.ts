@@ -1,6 +1,6 @@
 import { AxiosProxyConfig, AxiosRequestConfig, Method } from "axios";
-import { AuthUser } from "./entities/users/authUser";
-import { UsersService, AuthService, CatalogService, AssetDeliveryService, GroupsService, AssetService } from "./services";
+import { UsersService, AuthService, CatalogService, AssetDeliveryService, GroupsService, AssetService, ThumbnailsService } from "./services";
+import { SessionUser } from "./entities";
 export declare class RobloxSession {
     private _cookie;
     private _user;
@@ -9,13 +9,14 @@ export declare class RobloxSession {
         auth: AuthService;
         user: UsersService;
         catalog: CatalogService;
+        thumbnails: ThumbnailsService;
         assetDelivery: AssetDeliveryService;
         asset: AssetService;
         groups: GroupsService;
     };
     constructor(cookie: string, proxy?: AxiosProxyConfig);
     get cookie(): string;
-    get user(): AuthUser | undefined;
+    get user(): SessionUser | undefined;
     request<T>(url: string, method: Method, config?: AxiosRequestConfig): Promise<import("axios").AxiosResponse<T, any>>;
     login(): Promise<this>;
 }

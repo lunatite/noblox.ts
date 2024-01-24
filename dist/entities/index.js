@@ -13,3 +13,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./assets"), exports);
 __exportStar(require("./catalog"), exports);
 __exportStar(require("./groups"), exports);
+__exportStar(require("./thumbnails/usersAvatarHeadshotResponse"), exports);

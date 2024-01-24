@@ -18,9 +18,6 @@ const catalogSearch_1 = require("./catalogSearch");
 const splitArrayIntoChunks_1 = require("../../utils/splitArrayIntoChunks");
 const authService_1 = require("../authService/authService");
 class CatalogService {
-    constructor(_session) {
-        this._session = _session;
-    }
     static searchCatalog(options) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield axios_1.default.get(`${CatalogService.baseUrl}/search/items`, {
