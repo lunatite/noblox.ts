@@ -5,3 +5,4 @@ export { CatalogService } from "./catalogService/catalogService";
 export { GroupsService } from "./groupsService/groupsSerivce";
 export { UsersService } from "./usersService/usersService";
 export { ThumbnailsService } from "./thumbnailsService/thumbnailsService";
+export { GamepassService } from "./gamepass/gamepassService";
