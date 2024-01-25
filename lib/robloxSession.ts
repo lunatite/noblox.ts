@@ -12,6 +12,7 @@ import {
   GroupsService,
   AssetService,
   ThumbnailsService,
+  GamepassService,
 } from "./services";
 import { RobloxError } from "./robloxError";
 import { SessionUser } from "./entities";
@@ -35,6 +36,7 @@ export class RobloxSession {
     assetDelivery: new AssetDeliveryService(),
     asset: new AssetService(this),
     groups: new GroupsService(this),
+    gamepass: new GamepassService(this),
   };
 
   constructor(cookie: string, proxy?: AxiosProxyConfig) {

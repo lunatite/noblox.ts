@@ -1,5 +1,5 @@
 import { AxiosProxyConfig, AxiosRequestConfig, Method } from "axios";
-import { UsersService, AuthService, CatalogService, AssetDeliveryService, GroupsService, AssetService, ThumbnailsService } from "./services";
+import { UsersService, AuthService, CatalogService, AssetDeliveryService, GroupsService, AssetService, ThumbnailsService, GamepassService } from "./services";
 import { SessionUser } from "./entities";
 export declare class RobloxSession {
     private readonly _cookie;
@@ -14,6 +14,7 @@ export declare class RobloxSession {
         assetDelivery: AssetDeliveryService;
         asset: AssetService;
         groups: GroupsService;
+        gamepass: GamepassService;
     };
     constructor(cookie: string, proxy?: AxiosProxyConfig);
     get cookie(): string;

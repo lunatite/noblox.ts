@@ -27,6 +27,7 @@ class RobloxSession {
             assetDelivery: new services_1.AssetDeliveryService(),
             asset: new services_1.AssetService(this),
             groups: new services_1.GroupsService(this),
+            gamepass: new services_1.GamepassService(this),
         };
         if (!cookie.toLowerCase().includes("warning:-")) {
             throw new robloxError_1.RobloxError(Error("Warning : No Roblox warning detected in provided cookie. Ensure you include the entire .ROBLOSECURITY."));

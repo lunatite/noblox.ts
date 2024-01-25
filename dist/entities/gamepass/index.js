@@ -10,9 +10,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(require("./assets"), exports);
-__exportStar(require("./catalog"), exports);
-__exportStar(require("./groups"), exports);
-__exportStar(require("./thumbnails/usersAvatarHeadshotResponse"), exports);
-__exportStar(require("./users"), exports);
-__exportStar(require("./gamepass"), exports);
+__exportStar(require("./gamepassProductResponse"), exports);
+__exportStar(require("./purchaseGamepassParams"), exports);
+__exportStar(require("./purchaseGamepassResponse"), exports);
+__exportStar(require("./deleteGamepassResponse"), exports);

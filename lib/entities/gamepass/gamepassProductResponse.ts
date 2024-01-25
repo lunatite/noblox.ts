@@ -1,4 +1,4 @@
-export interface GamepassProductResponse {
+export interface GamepassProduct {
   TargetId: number;
   ProductType: string;
   AssetId: number;

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ThumbnailsService = exports.UsersService = exports.GroupsService = exports.CatalogService = exports.AuthService = exports.AssetService = exports.AssetDeliveryService = void 0;
+exports.GamepassService = exports.ThumbnailsService = exports.UsersService = exports.GroupsService = exports.CatalogService = exports.AuthService = exports.AssetService = exports.AssetDeliveryService = void 0;
 var assetDeliverySerivce_1 = require("./assetDeliveryService/assetDeliverySerivce");
 Object.defineProperty(exports, "AssetDeliveryService", { enumerable: true, get: function () { return assetDeliverySerivce_1.AssetDeliveryService; } });
 var assetService_1 = require("./assetService/assetService");
@@ -15,3 +15,5 @@ var usersService_1 = require("./usersService/usersService");
 Object.defineProperty(exports, "UsersService", { enumerable: true, get: function () { return usersService_1.UsersService; } });
 var thumbnailsService_1 = require("./thumbnailsService/thumbnailsService");
 Object.defineProperty(exports, "ThumbnailsService", { enumerable: true, get: function () { return thumbnailsService_1.ThumbnailsService; } });
+var gamepassService_1 = require("./gamepass/gamepassService");
+Object.defineProperty(exports, "GamepassService", { enumerable: true, get: function () { return gamepassService_1.GamepassService; } });
