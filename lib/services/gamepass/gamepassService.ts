@@ -9,10 +9,14 @@ export class GamepassService {
   constructor(private readonly _session: RobloxSession) {}
 
   public static async getGamepass(gamepassId: number) {
-    const resp = await axios.get<GamepassProduct>(
-      `https://apis.roblox.com/game-passes/v1/game-passes/${gamepassId}/product-info`,
-    );
-    return resp.data;
+    try {
+      const resp = await axios.get<GamepassProduct>(
+        `https://apis.roblox.com/game-passes/v1/game-passes/${gamepassId}/product-info`,
+      );
+      return resp.data;
+    } catch {
+      return null;
+    }
   }
 
   public async purchase(params: PurchaseGamepassParams) {

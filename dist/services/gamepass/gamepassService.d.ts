@@ -6,7 +6,7 @@ import { DeleteGamepassResponse } from "../../entities/gamepass";
 export declare class GamepassService {
     private readonly _session;
     constructor(_session: RobloxSession);
-    static getGamepass(gamepassId: number): Promise<GamepassProduct>;
+    static getGamepass(gamepassId: number): Promise<GamepassProduct | null>;
     purchase(params: PurchaseGamepassParams): Promise<PurchaseGamepassResponse>;
     delete(gamepassId: number): Promise<DeleteGamepassResponse>;
 }

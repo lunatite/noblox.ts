@@ -20,8 +20,13 @@ class GamepassService {
     }
     static getGamepass(gamepassId) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield axios_1.default.get(`https://apis.roblox.com/game-passes/v1/game-passes/${gamepassId}/product-info`);
-            return resp.data;
+            try {
+                const resp = yield axios_1.default.get(`https://apis.roblox.com/game-passes/v1/game-passes/${gamepassId}/product-info`);
+                return resp.data;
+            }
+            catch (_a) {
+                return null;
+            }
         });
     }
     purchase(params) {
