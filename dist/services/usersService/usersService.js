@@ -36,6 +36,18 @@ class UsersService {
             return response.data;
         });
     }
+    static getUsersByUsernames(usernames, excludeBannedUsers = false) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const response = yield axios_1.default.post(`${UsersService.baseUrl}/usernames/users`, { usernames, excludeBannedUsers });
+            return response.data;
+        });
+    }
+    static getUserByUsername(username, returnNullIfBanned = true) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const users = yield this.getUsersByUsernames([username], returnNullIfBanned);
+            return users.data.length !== 0 ? users.data[0] : null;
+        });
+    }
 }
 exports.UsersService = UsersService;
 UsersService.baseUrl = "https://users.roblox.com/v1";

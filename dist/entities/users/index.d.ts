@@ -1,3 +1,3 @@
 export { AuthUser } from "./authUser";
-export { User } from "./user";
+export { GetUserResponse } from "./getUserResponse";
 export { SessionUser } from "./sessionUser";
