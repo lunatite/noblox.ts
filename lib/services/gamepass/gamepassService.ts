@@ -21,7 +21,7 @@ export class GamepassService {
 
   public async purchase(params: PurchaseGamepassParams) {
     const resp = await this._session.request<PurchaseGamepassResponse>(
-      `https://economy.roblox.com/v1/purchases/products/${params.gamepassId}`,
+      `https://economy.roblox.com/v1/purchases/products/${params.productId}`,
       "POST",
       {
         data: {

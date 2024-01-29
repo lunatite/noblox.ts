@@ -18,7 +18,7 @@ const services_1 = require("./services");
 const robloxError_1 = require("./robloxError");
 axios_1.default.interceptors.response.use((response) => response, (error) => Promise.reject(new robloxError_1.RobloxError(error)));
 class RobloxSession {
-    constructor(cookie, proxy) {
+    constructor(cookie, httpsAgent) {
         this.services = {
             auth: new services_1.AuthService(this),
             user: new services_1.UsersService(this),
@@ -36,10 +36,10 @@ class RobloxSession {
             throw new robloxError_1.RobloxError(Error("Cookie cannot be an empty string."));
         }
         this._cookie = cookie;
-        this._proxy = proxy;
+        this._httpAgent = httpsAgent;
         this._axios = axios_1.default.create({
             timeout: 5000,
-            proxy,
+            httpsAgent,
             headers: {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
                 Cookie: `.ROBLOSECURITY=${this._cookie}`,
@@ -60,7 +60,7 @@ class RobloxSession {
                 headers["X-CSRF-TOKEN"] = yield this.services.auth.getXsrfToken();
             }
             const request = yield this._axios.request(Object.assign(Object.assign({}, config), { url,
-                method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers), proxy: this._proxy }));
+                method, headers: Object.assign(Object.assign({}, config === null || config === void 0 ? void 0 : config.headers), headers) }));
             return request;
         });
     }

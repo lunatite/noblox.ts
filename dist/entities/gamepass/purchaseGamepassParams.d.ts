@@ -1,5 +1,5 @@
 export interface PurchaseGamepassParams {
     price: number;
-    gamepassId: number;
+    productId: number;
     sellerId: number;
 }

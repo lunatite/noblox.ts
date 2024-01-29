@@ -31,7 +31,7 @@ class GamepassService {
     }
     purchase(params) {
         return __awaiter(this, void 0, void 0, function* () {
-            const resp = yield this._session.request(`https://economy.roblox.com/v1/purchases/products/${params.gamepassId}`, "POST", {
+            const resp = yield this._session.request(`https://economy.roblox.com/v1/purchases/products/${params.productId}`, "POST", {
                 data: {
                     expectedCurrency: 1,
                     expectedPrice: params.price,

@@ -1,9 +1,5 @@
-import axios, {
-  Axios,
-  AxiosProxyConfig,
-  AxiosRequestConfig,
-  Method,
-} from "axios";
+import axios, { Axios, AxiosRequestConfig, Method } from "axios";
+import { HttpsProxyAgent } from "https-proxy-agent";
 import {
   UsersService,
   AuthService,
@@ -25,7 +21,7 @@ axios.interceptors.response.use(
 export class RobloxSession {
   private readonly _cookie: string;
   private readonly _axios: Axios;
-  private readonly _proxy: AxiosProxyConfig | undefined;
+  private readonly _httpAgent?: typeof HttpsProxyAgent;
   private _user: SessionUser | undefined;
 
   public readonly services = {
@@ -39,7 +35,7 @@ export class RobloxSession {
     gamepass: new GamepassService(this),
   };
 
-  constructor(cookie: string, proxy?: AxiosProxyConfig) {
+  constructor(cookie: string, httpsAgent?: typeof HttpsProxyAgent) {
     if (!cookie.toLowerCase().includes("warning:-")) {
       throw new RobloxError(
         Error(
@@ -52,11 +48,11 @@ export class RobloxSession {
     }
 
     this._cookie = cookie;
-    this._proxy = proxy;
+    this._httpAgent = httpsAgent;
 
     this._axios = axios.create({
       timeout: 5000,
-      proxy,
+      httpsAgent,
       headers: {
         "User-Agent":
           "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:122.0) Gecko/20100101 Firefox/122.0",
@@ -97,7 +93,6 @@ export class RobloxSession {
         ...config?.headers,
         ...headers,
       },
-      proxy: this._proxy,
     });
 
     return request;

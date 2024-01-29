@@ -12,4 +12,6 @@ export interface PurchaseGamepassResponse {
     sellerName: string;
     transactionVerb: string;
     isMultiPrivateSale: boolean;
+    title?: string;
+    errorMsg?: string;
 }
